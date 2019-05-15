@@ -1,0 +1,401 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1400,
+  "model": {
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "type": "structured",
+        "name": "SQL/EPRUSARW1252\\MSSQL2017;CrimeStatDWH_DEV",
+        "connectionDetails": {
+          "protocol": "tds",
+          "address": {
+            "server": "EPRUSARW1252\\MSSQL2017",
+            "database": "CrimeStatDWH_DEV"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "options": {},
+        "credential": {
+          "AuthenticationKind": "Windows",
+          "kind": "SQL",
+          "path": "eprusarw1252\\mssql2017;CrimeStatDWH_DEV",
+          "Username": "SARATOV\\Sergei_Boikov",
+          "EncryptConnection": false
+        }
+      }
+    ],
+    "tables": [
+      {
+        "name": "Country",
+        "columns": [
+          {
+            "name": "DimCountryKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DimCountryKey"
+          },
+          {
+            "name": "Region",
+            "dataType": "string",
+            "sourceColumn": "Region"
+          },
+          {
+            "name": "SubRegion",
+            "dataType": "string",
+            "sourceColumn": "SubRegion"
+          },
+          {
+            "name": "Country",
+            "dataType": "string",
+            "sourceColumn": "Country"
+          },
+          {
+            "name": "CountryISOCode",
+            "dataType": "string",
+            "sourceColumn": "CountryISOCode"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/EPRUSARW1252\\MSSQL2017;CrimeStatDWH_DEV\",",
+                "    datamart_vw_DimCountry = Source{[Schema=\"datamart\",Item=\"vw_DimCountry\"]}[Data]",
+                "in",
+                "    datamart_vw_DimCountry"
+              ]
+            }
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Geography",
+            "levels": [
+              {
+                "name": "Region",
+                "ordinal": 0,
+                "column": "Region"
+              },
+              {
+                "name": "SubRegion",
+                "ordinal": 1,
+                "column": "SubRegion"
+              },
+              {
+                "name": "Country",
+                "ordinal": 2,
+                "column": "Country"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "CrimeType",
+        "columns": [
+          {
+            "name": "DimCrimeTypeKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DimCrimeTypeKey"
+          },
+          {
+            "name": "Crime Type",
+            "dataType": "string",
+            "sourceColumn": "CrimeTypeName"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/EPRUSARW1252\\MSSQL2017;CrimeStatDWH_DEV\",",
+                "    datamart_vw_DimCrimeType = Source{[Schema=\"datamart\",Item=\"vw_DimCrimeType\"]}[Data]",
+                "in",
+                "    datamart_vw_DimCrimeType"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Calendar",
+        "columns": [
+          {
+            "name": "DimDateKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DimDateKey"
+          },
+          {
+            "name": "FullDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FullDate"
+          },
+          {
+            "name": "DayOfMonth",
+            "dataType": "int64",
+            "sourceColumn": "DayOfMonth"
+          },
+          {
+            "name": "DayName",
+            "dataType": "string",
+            "sourceColumn": "DayName"
+          },
+          {
+            "name": "MonthName",
+            "dataType": "string",
+            "sourceColumn": "MonthName"
+          },
+          {
+            "name": "Month",
+            "dataType": "int64",
+            "sourceColumn": "Month"
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year"
+          },
+          {
+            "name": "DayOfWeek",
+            "dataType": "int64",
+            "sourceColumn": "DayOfWeek"
+          },
+          {
+            "name": "DayOfYear",
+            "dataType": "int64",
+            "sourceColumn": "DayOfYear"
+          },
+          {
+            "name": "WeekOfYear",
+            "dataType": "string",
+            "sourceColumn": "WeekOfYear"
+          },
+          {
+            "name": "MonthYear",
+            "dataType": "string",
+            "sourceColumn": "MonthYear"
+          },
+          {
+            "name": "FirstDayOfMonth",
+            "dataType": "dateTime",
+            "sourceColumn": "FirstDayOfMonth"
+          },
+          {
+            "name": "LastDayOfMonth",
+            "dataType": "dateTime",
+            "sourceColumn": "LastDayOfMonth"
+          },
+          {
+            "name": "Quarter",
+            "dataType": "int64",
+            "sourceColumn": "Quarter"
+          },
+          {
+            "name": "QuarterYear",
+            "dataType": "string",
+            "sourceColumn": "QuarterYear"
+          },
+          {
+            "name": "HalfYear",
+            "dataType": "int64",
+            "sourceColumn": "HalfYear"
+          },
+          {
+            "name": "HalfYearName",
+            "dataType": "string",
+            "sourceColumn": "HalfYearName"
+          },
+          {
+            "name": "LeapYear",
+            "dataType": "boolean",
+            "sourceColumn": "LeapYear"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/EPRUSARW1252\\MSSQL2017;CrimeStatDWH_DEV\",",
+                "    datamart_vw_DimDate = Source{[Schema=\"datamart\",Item=\"vw_DimDate\"]}[Data]",
+                "in",
+                "    datamart_vw_DimDate"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Fact Crime",
+        "columns": [
+          {
+            "name": "FactCrimeKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "FactCrimeKey"
+          },
+          {
+            "name": "DimDateKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DimDateKey"
+          },
+          {
+            "name": "DimCrimeTypeKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DimCrimeTypeKey"
+          },
+          {
+            "name": "DimCountryKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DimCountryKey"
+          },
+          {
+            "name": "Number Of Crime",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "NumOfCrime"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/EPRUSARW1252\\MSSQL2017;CrimeStatDWH_DEV\",",
+                "    datamart_vw_FactCrime = Source{[Schema=\"datamart\",Item=\"vw_FactCrime\"]}[Data]",
+                "in",
+                "    datamart_vw_FactCrime"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Number Of Crime",
+            "expression": " SUM('Fact Crime'[Number Of Crime])"
+          },
+          {
+            "name": "Rate",
+            "expression": " [Total Number Of Crime]/[Total Population]"
+          }
+        ]
+      },
+      {
+        "name": "Fact Population",
+        "columns": [
+          {
+            "name": "FactPopulationKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "FactPopulationKey"
+          },
+          {
+            "name": "DimDateKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DimDateKey"
+          },
+          {
+            "name": "DimCountryKey",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "DimCountryKey"
+          },
+          {
+            "name": "Population",
+            "dataType": "int64",
+            "isHidden": true,
+            "sourceColumn": "Population"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/EPRUSARW1252\\MSSQL2017;CrimeStatDWH_DEV\",",
+                "    datamart_vw_FactPopulation = Source{[Schema=\"datamart\",Item=\"vw_FactPopulation\"]}[Data]",
+                "in",
+                "    datamart_vw_FactPopulation"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Population",
+            "expression": " SUM('Fact Population'[Population])"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "778109c4-0f79-4640-86fc-f99b3aa81c1c",
+        "fromTable": "Fact Crime",
+        "fromColumn": "DimCrimeTypeKey",
+        "toTable": "CrimeType",
+        "toColumn": "DimCrimeTypeKey"
+      },
+      {
+        "name": "f092a394-61a4-4125-aae5-10dfefdb6d5a",
+        "fromTable": "Fact Crime",
+        "fromColumn": "DimCountryKey",
+        "toTable": "Country",
+        "toColumn": "DimCountryKey"
+      },
+      {
+        "name": "f3c7de1f-42fa-43be-b343-e1c736020f12",
+        "fromTable": "Fact Crime",
+        "fromColumn": "DimDateKey",
+        "toTable": "Calendar",
+        "toColumn": "DimDateKey"
+      },
+      {
+        "name": "34c5706e-ee05-47eb-a658-3f1a9ca8f980",
+        "fromTable": "Fact Population",
+        "fromColumn": "DimDateKey",
+        "toTable": "Calendar",
+        "toColumn": "DimDateKey"
+      },
+      {
+        "name": "c3c49de0-94dc-4a3d-bb30-8cf59df6cde7",
+        "fromTable": "Fact Population",
+        "fromColumn": "DimCountryKey",
+        "toTable": "Country",
+        "toColumn": "DimCountryKey"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "500"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}
